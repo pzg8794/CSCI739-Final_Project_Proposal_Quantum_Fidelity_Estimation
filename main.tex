@@ -1,0 +1,26 @@
+\documentclass[10pt,onecolumn]{IEEEtran}
+\usepackage{amsmath}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+
+\title{Estimating End-to-End Entanglement Fidelity from Noisy Link Estimates with a Quantum Kernel}
+\author{\IEEEauthorblockN{Piter Garcia}
+\IEEEauthorblockA{CSCI 739: Topics in Artificial Intelligence\\Final Project Proposal}}
+
+\begin{document}
+\maketitle
+
+\section{Question and Motivation}
+Quantum-network routing depends on end-to-end entanglement quality, but link information available at decision time may be incomplete or noisy. I propose to ask: \emph{Under a fixed route and purification setting, how accurately and efficiently can a small quantum-kernel model estimate simulated end-to-end entanglement fidelity from limited, noisy link-fidelity estimates, compared with analytic and classical alternatives?} The project is a bounded quantum machine learning study, not a claim that quantum models outperform classical methods.
+
+\section{Data and Method}
+I will build a small offline dataset from independently generated simulator link configurations. The target will be the simulator's explicit final-fidelity output. A separate, disclosed synthetic observation process will mask or perturb link-fidelity estimates before they reach any estimator. I will initially fix route length, allocation, and purification settings to isolate the effect of observation quality. The existing GA medium-scale routing run reports expected payoff, not this fidelity target; I will not relabel its reward or allocation contexts as measured fidelity.
+
+I will implement a shallow Qiskit feature map with a fidelity quantum kernel and support-vector regression. On identical grouped training and test partitions, I will compare it with a training-mean predictor, ridge regression, RBF support-vector regression, and an analytic plug-in estimator that applies the known fidelity calculation to the available link estimates. Missing-link handling, preprocessing, and tuning will be determined from training groups only. All noisy views and routes sharing a latent physics realization will stay in the same partition.
+
+\section{Evaluation and Scope}
+I will report held-out mean absolute and root-mean-square error, sensitivity to missingness and noise, and computational cost. A negative quantum result will still answer the comparison question. If fidelity labels show too little variation, the observation model is not defensible, or kernel computation exceeds the course budget, I will reduce the number of regimes or model size while retaining the analytic and classical comparisons.
+
+The project builds on my GA quantum-network work by studying a separate observation-and-estimation problem using existing simulator physics; it will not alter reviewer-driven routing experiments or manuscript claims. Its observation-quality protocol could later inform a controlled condition in my DSCI 602 fairness-aware routing work. That later use would require a separate request-level service experiment and cannot be inferred from this estimator study alone.
+
+\end{document}
